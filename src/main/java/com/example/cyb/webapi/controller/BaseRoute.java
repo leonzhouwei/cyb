@@ -10,5 +10,6 @@ public final class BaseRoute {
 	public static final String ADMIN = ROOT + "admin";
 	public static final String DELEARS = ROOT + "dealers";
 	public static final String GUI = ROOT + "ui";
+	public static final String HELLO = ROOT + "hello";
 	
 }
