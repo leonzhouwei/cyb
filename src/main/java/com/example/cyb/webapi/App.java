@@ -1,5 +1,7 @@
 package com.example.cyb.webapi;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -22,6 +24,8 @@ public class App {
 	private static final Logger logger = LoggerFactory.getLogger(App.class);
 	private static ConfigurableApplicationContext cac;
 	
+	@Value("${server.address}")
+	private String host;
 	@Value("${server.port}")
 	private int port;
 	@Value("${server.sessionTimeout}")
@@ -34,8 +38,10 @@ public class App {
 	}
 	
 	@Bean
-	public EmbeddedServletContainerFactory servletContainer() {
+	public EmbeddedServletContainerFactory servletContainer() throws UnknownHostException {
 	    TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
+	    InetAddress address = InetAddress.getByName(host);
+	    factory.setAddress(address);
 	    factory.setPort(port);
 	    factory.setSessionTimeout(sessionTimeout, TimeUnit.SECONDS);
 	    return factory;
@@ -51,6 +57,7 @@ public class App {
 	
 	void logStatus() {
 		logger.info("process id: " + System.getProperty("PID"));
+		logger.info("host: " + host);
 		logger.info("port: " + port);
 		logger.info("session timeout: " + sessionTimeout);
 	}
