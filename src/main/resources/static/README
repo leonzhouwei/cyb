@@ -1,0 +1,4 @@
+Actually, the 'static' directory plays the role of the 'public' 
+directory. We do not name it 'public' because the 'public' 
+directory can not be automatically deployed by maven.
+ 
